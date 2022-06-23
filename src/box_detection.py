@@ -1,5 +1,20 @@
+import sys
+import os.path
 import cv2
 import numpy as np
+
+def validate_parameters():
+    if len(sys.argv) == 0:
+        print("Arguments missing: file path, directory path.")
+        exit(1)
+
+    if len(sys.argv) > 0 and not(os.path.exists(sys.argv[0])):
+        print("Given file path is invalid.")
+        exit(1)
+
+    if len(sys.argv) > 1 and not(os.path.exists(sys.argv[1])):
+        print("Given directory path is invalid.")
+        exit(1)
 
 def sort_contours(cnts, method="left-to-right"):
     # initialize the reverse flag and sort index
@@ -95,6 +110,7 @@ def box_extraction(img_for_box_extraction_path, cropped_dir_path):
     # cv2.imwrite("./Temp/img_contour.jpg", img)
 
 
-
-#Input image path and out folder
-box_extraction("41.jpg", "./Output/")
+validate_parameters()
+filePath = sys.argv[0]
+directoryPath = sys.argv[1]
+box_extraction(filePath, directoryPath)
